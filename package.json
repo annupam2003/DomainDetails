@@ -1,0 +1,25 @@
+{
+  "name": "domaindetails",
+  "version": "1.0.0",
+  "description": "Get the existing domain infomation",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/annupam2003/DomainDetails.git"
+  },
+  "author": "Anupam Kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/annupam2003/DomainDetails/issues"
+  },
+  "homepage": "https://github.com/annupam2003/DomainDetails#readme",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "cheerio": "^1.0.0-rc.10",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.14"
+  }
+}
