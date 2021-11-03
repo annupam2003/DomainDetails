@@ -1,14 +1,16 @@
 const axios = require('axios');
 const express = require('express');
 const cheerio = require('cheerio');
-const { response, request } = require('express');
-const { insertBefore } = require('cheerio/lib/api/manipulation');
-const PORT=5400;
+
 const app= express();
+const PORT=4200;
 const Url ='https://www.whois.com/whois/';
 const infomation = [];
 
-function DomainInfo(DomainName){    
+app.get('/api/Domain/:Name',(req,res)=>{
+    const startdt = new Date();
+    const DomainName = req.params.Name;
+
     axios(Url+DomainName).then(response =>{
         infomation.length=0;    
         const html = response.data;
@@ -30,22 +32,10 @@ function DomainInfo(DomainName){
                 heading,rows
             });
         });
+        const enddt = new Date();
+        console.log(DomainName+' '+(enddt.getTime()- startdt.getTime())+' ms');
+        res.send(infomation.length > 0?JSON.stringify(infomation):JSON.stringify({"status":"Domain not found"}));
     }).catch(err => console.log(err) );
-}
-
-
-app.get('/api/Domain/:Name',(request,response)=>{
-    const DomainName=request.params.Name;    
-     DomainInfo(DomainName);
-     if(infomation.length > 0){
-        response.send(JSON.stringify(infomation));    
-     }
-     else{
-        response.send(JSON.stringify({"status":"Domain not found"}));    
-     }
 });
-
-
-
 
 app.listen(PORT,()=>{ console.log(`Current Running Port is ${PORT}`)});
